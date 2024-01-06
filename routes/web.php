@@ -23,6 +23,8 @@ Route::middleware(['auth','verified'])->group(function () {
   Route::get('/admin/product', \App\Livewire\Admin\GetProduct::class)->name('admin.product')->middleware('admin');
   Route::get('/admin/product/{id}', \App\Livewire\Admin\EditProduct::class)->name('admin.edit')->middleware('admin');
   Route::get('/product', \App\Livewire\User\Index::class)->name('user.product')->withoutMiddleware(['auth', 'verified']);
+  Route::get('/product/{id}', \App\Livewire\User\ProductDetail::class)->name('user.productDetail');
+  Route::get('/product/liga/{ligaid}', \App\Livewire\User\ProductLiga::class)->name('user.productLiga')->withoutMiddleware(['auth','verified']);
 });
 
 Route::middleware('guest')->group(function () {
