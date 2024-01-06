@@ -21,7 +21,7 @@ class Index extends Component
 
     public function render()
     {
-        $products = Product::latest()->where('name', 'like', "%{$this->search}%")->paginate(12);
+        $products = Product::latest()->where('name', 'like', "%{$this->search}%")->paginate(8);
         return view('livewire.pages.user.index',compact('products'));
     }
 }
