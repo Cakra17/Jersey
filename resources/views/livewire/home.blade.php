@@ -37,14 +37,13 @@
   
     <div class="grid grid-cols-1 content-center lg:grid-cols-4 justify-items-center gap-8 ">
       @foreach ($products as $product)
-        <div class="card w-4/5 bg-base-100 shadow-xl">
+        <div class="card w-4/5 bg-neutral-400/10   shadow-xl">
           <figure><img src="{{ checkImagePath($product->image)}}" alt="jersey" /></figure>
           <div class="card-body">
-            <h2 class="card-title">{{$product->name}}</h2>
-            <p>{{$product->description}}</p>
+            <h2 class="card-title text-neutral-50">{{$product->name}}</h2>
             <p>{{ rupiah($product->price) }}</p>
             <div class="card-actions justify-end">
-              <button class="btn btn-primary">Beli sekarang</button>
+              <a href="{{route('user.productDetail', $product->id)}}" class="btn btn-primary">Beli sekarang</a>
             </div>
           </div>
         </div>
@@ -57,15 +56,15 @@
   </section>
 
   {{-- Liga --}}
-  <section class="p-1 min-h-[400px] bg-[#2E4F4F]">
+  <section class="p-1 min-h-[400px] ">
     
     <h1 class="font-bold text-5xl text-center m-8 text-white">Liga</h1>
 
     <div class="flex lg:flex-row flex-col justify-center items-center gap-6 lg:h-52 h-screen">
       @foreach ($ligas as $liga)
-      <div class="card w-96 bg-base-100 shadow-xl justify-center items-center h-full">
-        <img src="{{url('assets/liga')}}/{{$liga->image}}" alt="" class="max-h-[100px]"/>
-      </div>
+      <a class="card w-96 bg-slate-400/40 shadow-xl justify-center items-center h-full" href="{{route('user.productLiga', $liga->id)}}" wire:navigate>
+        <img src="{{url('assets/liga')}}/{{$liga->image}}" alt="" class="max-h-[100px] lg:max-h-[130px]"/>
+      </a>
       @endforeach
     </div>
   </section>

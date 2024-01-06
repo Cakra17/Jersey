@@ -1,3 +1,13 @@
+@php
+  use App\Models\Liga;
+  
+  $ligas_europe = Liga::where('region_id', 1)->get();
+  $ligas_america = Liga::where('region_id', 2)->get();  
+  $ligas_asia = Liga::where('region_id', 3)->get();
+
+
+@endphp
+
 <div class="flex justify-between items-center w-full mx-auto p-2 bg-[#232D3F]">
   {{-- SIDEBAR HAMBURGER --}}
   @if (Route::is('admin.*'))
@@ -10,16 +20,56 @@
     <a class="text text-2xl font-bold bg-gradient-to-r from-white via-emerald-300 to-red-500 inline-block text-transparent bg-clip-text" href="/" wire:navigate>RetroStrips</a>
   </div>
   {{-- NAVLINKS --}}
-  @if (Route::is('home'))
+  @if (Route::is('home') || Route::is('user.*'))
     <div class="nav-links md:static md:min-h-fit absolute md:bg-inherit bg-black min-h-[60vh] left-0 top-[-100%] md:w-auto w-full z-10 flex items-center px-5">
       <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
         <li>
           <div class="dropdown dropdown-hover">
             <div tabindex="0" role="button" class="m-1 hover:text-accent transition text-white font-bold">Klub</div>
             <ul tabindex="0" class="dropdown-content bg-white z-[1] menu p-2 shadow  w-52">
-              <li><a class="hover:bg-accent text-black">Eropa</a></li>
-              <li><a class="hover:bg-accent text-black">Amerika</a></li>
-              <li><a class="hover:bg-accent text-black">Asia</a></li>
+              <li>
+                <details class="dropdown dropdown-right">
+                  <summary class="m-1 text-black list-none">Eropa</summary>
+                  <ul class="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
+                    @if($ligas_europe->isEmpty())
+                      <li><a class="pointer-events-none">Liga tidak tersedia</a></li>
+                    @else
+                      @foreach ($ligas_europe as $liga)
+                        <li><a class="hover:bg-emerald-500 text-black" href="{{route('user.productLiga',$liga->id)}}" wire:navigate>{{$liga->name}}</a></li>
+                      @endforeach
+                    @endif
+                  </ul>
+                </details>
+              </li>
+              <li>
+                <details class="dropdown dropdown-right">
+                  <summary class="m-1 text-black " >Amerika</summary>
+                  <ul class="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
+                    @if($ligas_america->isEmpty())
+                      <li><a class="pointer-events-none">Liga tidak tersedia</a></li>
+                    @else
+                      @foreach ($ligas_america as $liga)
+                        <li><a class="hover:bg-emerald-500 text-black" wire:navigate>{{$liga->name}}</a></li>
+                      @endforeach
+                    @endif
+                  </ul>
+                </details>
+              </li>
+              <li>
+                <details class="dropdown dropdown-right">
+                  <summary class="m-1 text-black ">Asia</summary>
+                  <ul class="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
+                    @if($ligas_asia->isEmpty())
+                      <li><a class="pointer-events-none">Liga tidak tersedia</a></li>
+                    @else
+                      @foreach ($ligas_asia as $liga)
+                        <li><a class="hover:bg-emerald-500 text-black" wire:navigate>{{$liga->name}}</a></li>
+                      @endforeach
+                    @endif
+                  </ul>
+                </details>
+              </li>
+              <li><a href="{{route('user.product')}}" class="text-black" wire:navigate>Semua Klub</a></li>
             </ul>
           </div>
         </li>
