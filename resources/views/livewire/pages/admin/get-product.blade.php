@@ -36,11 +36,10 @@
             </div>
             <div class="flex justify-center flex-col items-center lg:flex-row lg:flex-wrap lg:items-stretch item-center gap-8 mt-6 pb-6">
               @foreach ($products as $product)
-              <div class="card lg:w-1/5 w-3/5 bg-base-100 shadow-xl">
+              <div class="card lg:w-1/5 w-3/5 bg-neutral-400/10 shadow-xl">
                   <figure><img src="{{ checkImagePath($product->image)}}" alt="jersey" /></figure>
                   <div class="card-body">
                     <h2 class="card-title">{{$product->name}}</h2>
-                    <p>{{$product->description}}</p>
                     <p>{{ rupiah($product->price) }}</p>
                     <div class="card-actions justify-end">
                       <a class="btn btn-warning" href="{{route('admin.edit', $product->id)}}" wire:navigate>Edit</a>
@@ -49,7 +48,6 @@
                   </div>
                 </div>
               @endforeach
-              {{-- {{dd($products)}} --}}
             </div>
             {{-- PAGINATION --}}
             <div class="flex justify-center items-center">
