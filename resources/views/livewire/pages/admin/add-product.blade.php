@@ -98,7 +98,22 @@
                 Lihat Produk
               </a>
             </li>
-            <li><a class="text-lg hover:text-emerald-500 {{ Route::is('admin') ? 'bg-emerald-500 rounded-md text-white' : ''}}">Pembayaran</a></li>
+            <li>
+              <a class="text-lg hover:text-emerald-500 {{ Route::is('admin.liga.post') ? 'bg-emerald-500 rounded-md text-white' : ''}}" href="{{route('admin.liga.post')}}" wire:navigate wire:ignore>
+                <span class="text-2xl">
+                  <ion-icon name="add-outline"></ion-icon>
+                </span>
+                Tambah Liga
+              </a>
+            </li>
+            <li>
+              <a class="text-lg hover:text-emerald-500 {{ Route::is('admin.liga') ? 'bg-emerald-500 rounded-md text-white' : ''}}" href="{{route('admin.liga')}}" wire:navigate wire:ignore>
+                <span class="text-2xl">
+                  <ion-icon name="football-outline"></ion-icon>
+                </span>
+                Lihat Liga
+              </a>
+            </li> 
             <li><a class="text-lg hover:text-emerald-500 {{ Route::is('admin') ? 'bg-emerald-500 rounded-md text-white' : ''}}">Pembayaran</a></li>
           </ul>
         </div>

@@ -9,6 +9,13 @@ class Liga extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'country',
+        'image',
+        'region_id',
+    ];
+
     public function products()
     {
         return $this->hasMany(Product::class,'liga_id','id');

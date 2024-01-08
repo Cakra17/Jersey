@@ -5,8 +5,8 @@
     <div class="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
-          <form class=" w-full mx-auto p-8 rounded-lg" wire:submit="update">
-            <h2 class="text-4xl dark:text-white font-bold ">Edit Produk</h2>
+          <form class=" w-full mx-auto p-8 rounded-lg" wire:submit="save">
+            <h2 class="text-4xl dark:text-white font-bold ">Tambah Liga</h2>
 
             @if (flash()->message)
               @if (flash()->class === 'success')
@@ -24,38 +24,30 @@
             @endif
 
             <div class="flex flex-col text-gray-400 py-2">
-                <label for="productName">Nama Produk</label>
-                <input class="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none" type="text" name="productName" id="productName" wire:model='name' value="{{$product->name}}">
+                <label for="productName">Nama Liga</label>
+                <input class="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none" type="text" name="productName" id="productName" wire:model='name'>
                 @error('name')
                   <small class="text-red-500 justify-center">{{ $message }}</small>
                 @enderror
             </div>
             <div class="flex flex-col text-gray-400 py-2">
-                <label>Liga</label>
+                <label>Region</label>
                 <select class="select bg-gray-700 mt-2 p-2 w-full" wire:model="liga_id" >
-                    <option disabled>Pilih Liga</option>
-                    <option value="1">Bundesliga</option>
-                    <option value="2">Premier League</option>
-                    <option value="3">La liga</option>
-                    <option value="4">Serie A</option>
+                    <option disabled>Pilih Rgion</option>
+                    <option value="1">Eropa</option>
+                    <option value="2">Amerika</option>
+                    <option value="3">Asia</option>
                 </select>
             </div>
             <div class="flex flex-col text-gray-400 py-2">
-              <label for="price">Harga</label>
-              <input class="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none" type="text" name="price" id="price" wire:model='price' value="{{$product->price}}">
-              @error('price')
+              <label for="country">Negara</label>
+              <input class="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none" type="text" name="country" id="country" wire:model='country'>
+              @error('country')
                 <small class="text-red-500 justify-center">{{ $message }}</small>
               @enderror
             </div>
             <div class="flex flex-col text-gray-400 py-2">
-              <label for="description">Deskripsi</label>
-              <textarea class="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none" name="description" id="description" rows="5" wire:model="description" value="{{$product->description}}"></textarea>
-              @error('description')
-                <small class="text-red-500 justify-center">{{ $message }}</small>
-              @enderror
-            </div>
-            <div class="flex flex-col text-gray-400 py-2">
-              <label for="thumb">Gambar Produk</label>
+              <label for="thumb">Logo Liga</label>
               <input class="file-input file-input-bordered w-full bg-gray-700" type="file" name="thumb" id="" accept="image/*" wire:model='image'>
               @error('image')
                 <small class="text-red-500 justify-center">{{ $message }}</small>
@@ -63,7 +55,7 @@
             </div>
           
             <button type="submit" class="btn btn-accent my-5 py-2 shadow-lg text-white font-semibold text-lg" >
-                <span wire:loading.remove>Edit</span>
+                <span wire:loading.remove>Tambah</span>
                 <span class="loading loading-spinner loading-md" wire:loading></span>
             </button>
             

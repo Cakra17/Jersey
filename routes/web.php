@@ -25,6 +25,9 @@ Route::middleware(['auth','verified'])->group(function () {
   Route::get('/product', \App\Livewire\User\Index::class)->name('user.product')->withoutMiddleware(['auth', 'verified']);
   Route::get('/product/{id}', \App\Livewire\User\ProductDetail::class)->name('user.productDetail');
   Route::get('/product/liga/{ligaid}', \App\Livewire\User\ProductLiga::class)->name('user.productLiga')->withoutMiddleware(['auth','verified']);
+  Route::get('/admin/liga/post', \App\Livewire\Admin\AddLiga::class)->name('admin.liga.post')->middleware('admin');
+  Route::get('/admin/liga',\App\Livewire\Admin\GetLiga::class)->name('admin.liga');
+  Route::get('/admin/liga/{ligaid}',\App\Livewire\Admin\EditLiga::class)->name('admin.liga.edit');
 });
 
 Route::middleware('guest')->group(function () {

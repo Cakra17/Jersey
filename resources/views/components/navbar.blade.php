@@ -49,7 +49,7 @@
                       <li><a class="pointer-events-none">Liga tidak tersedia</a></li>
                     @else
                       @foreach ($ligas_america as $liga)
-                        <li><a class="hover:bg-emerald-500 text-black" wire:navigate>{{$liga->name}}</a></li>
+                        <li><a class="hover:bg-emerald-500 text-black" href="{{route('user.productLiga',$liga->id)}}" wire:navigate>{{$liga->name}}</a></li>
                       @endforeach
                     @endif
                   </ul>
@@ -63,7 +63,7 @@
                       <li><a class="pointer-events-none">Liga tidak tersedia</a></li>
                     @else
                       @foreach ($ligas_asia as $liga)
-                        <li><a class="hover:bg-emerald-500 text-black" wire:navigate>{{$liga->name}}</a></li>
+                        <li><a class="hover:bg-emerald-500 text-black" href="{{route('user.productLiga',$liga->id)}}" wire:navigate>{{$liga->name}}</a></li>
                       @endforeach
                     @endif
                   </ul>

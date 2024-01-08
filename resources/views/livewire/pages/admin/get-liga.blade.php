@@ -1,17 +1,11 @@
 @php
-
-    function rupiah($price)
-    {
-        $hasil_rupiah = "Rp " . number_format($price,2,',','.');
-	      return $hasil_rupiah;
-    }
     
-    function checkImagePath($image)
+    function checkImagePathLiga($image)
     {
       if (substr($image,0, 5) === 'https') {
         return url($image);
       }else {
-        return url('assets/jersey/'.$image);
+        return url('assets/liga/'.$image);
       }
     }
 
@@ -25,7 +19,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
           <div class="w-full min-h-screen p-8">
-            <h2 class="text-4xl dark:text-white font-bold text-center lg:text-left">Lihat Produk</h2>
+            <h2 class="text-4xl dark:text-white font-bold text-center lg:text-left">Lihat Liga</h2>
             <div class="w-2/3 relative mx-auto lg:my-10">
               <div class="relative">
                   <input type="text" placeholder="Type here" class="input input-bordered w-full rounded-2xl" wire:model.live="search"/>
@@ -34,24 +28,22 @@
                   </div>
               </div>
             </div>
-            <div class="flex justify-center flex-col items-center lg:flex-row lg:flex-wrap lg:items-stretch item-center gap-8 mt-6 pb-6">
-              @foreach ($products as $product)
-              <div class="card lg:w-1/5 w-3/5 bg-neutral-400/10 shadow-xl">
-                  <figure><img src="{{ checkImagePath($product->image)}}" alt="jersey" /></figure>
-                  <div class="card-body">
-                    <h2 class="card-title">{{$product->name}}</h2>
-                    <p>{{ rupiah($product->price) }}</p>
-                    <div class="card-actions justify-end">
-                      <a class="btn btn-warning" href="{{route('admin.edit', $product->id)}}" wire:navigate>Edit</a>
-                      <button class="btn btn-error" wire:click="destroy({{$product->id}})" >Delete</button>
-                    </div>
+            <div class="grid grid-cols-1 content-center lg:grid-cols-4 md:grid-cols-2 justify-items-center gap-8 p-8">
+                @foreach ($ligas as $liga)
+                <div class="card h-full bg-slate-400/40 p-6">
+                  <div class="w-72 p-6 flex justify-center" href="{{route('user.productLiga', $liga->id)}}" wire:navigate>
+                    <img src="{{ checkImagePathLiga($liga->image)}}" alt="" class="max-h-[100px] lg:max-h-[130px]"/>
+                  </div>
+                  <div class="flex justify-end gap-4">
+                    <a class="btn btn-warning" href="{{route('admin.liga.edit', $liga->id)}}" wire:navigate>Edit</a>
+                    <button class="btn btn-error" wire:click="destroy({{$liga->id}})" >Delete</button>
                   </div>
                 </div>
               @endforeach
             </div>
             {{-- PAGINATION --}}
             <div class="flex justify-center items-center">
-              {{ $products->links('components.custom-pagination-links') }}  
+              {{ $ligas->links('components.custom-pagination-links') }}  
             </div>
           </div>
         </div> 
@@ -93,13 +85,13 @@
               </a>
             </li>
             <li>
-              <a class="text-lg hover:text-emerald-500 {{ Route::is('admin.liga') ? 'bg-emerald-500 rounded-md text-white' : ''}}" href="{{route('admin.liga')}}" wire:navigate wire:ignore>
-                <span class="text-2xl">
-                  <ion-icon name="football-outline"></ion-icon>
-                </span>
-                Lihat Liga
-              </a>
-            </li> 
+                <a class="text-lg hover:text-emerald-500 {{ Route::is('admin.liga') ? 'bg-emerald-500 rounded-md text-white' : ''}}" href="{{route('admin.liga')}}" wire:navigate wire:ignore>
+                  <span class="text-2xl">
+                    <ion-icon name="football-outline"></ion-icon>
+                  </span>
+                  Lihat Liga
+                </a>
+              </li> 
             <li><a class="text-lg hover:text-emerald-500 {{ Route::is('admin') ? 'bg-emerald-500 rounded-md text-white' : ''}}">Pembayaran</a></li>
           </ul>
         </div>

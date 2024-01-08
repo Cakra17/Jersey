@@ -15,7 +15,7 @@ class Home extends Component
     public function render()
     {
         $products = Product::all()->take(8);
-        $ligas = Liga::all();
+        $ligas = Liga::all()->take(8);
         return view('livewire.home',[
             'ligas' => $ligas,
             'products' => $products,
