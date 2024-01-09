@@ -21,9 +21,16 @@ class GetProduct extends Component
     #[Url]
     public $search = '';
 
-    public function destroy($id)
+    public $productid;
+
+    public function check($id)
     {
-        $product = Product::find($id);
+        $this->productid = $id;
+    }
+
+    public function destroy()
+    {
+        $product = Product::find($this->productid);
         CloudinaryStorage::delete($product->image);
         $product->delete();
     }

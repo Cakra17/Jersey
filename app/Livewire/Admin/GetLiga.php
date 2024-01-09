@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Http\Controllers\CloudinaryStorage;
 use App\Models\Liga;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -20,9 +21,18 @@ class GetLiga extends Component
     #[Url()]
     public $search = '';
 
-    public function destroy($id)
+    public $ligaid;
+
+    public function check($id)
     {
-        dd($id);
+        $this->ligaid = $id;
+    }
+
+    public function destroy()
+    {
+        $liga = Liga::find($this->ligaid);
+        CloudinaryStorage::delete($liga->image);
+        $liga->delete();
     }
     
     public function render()

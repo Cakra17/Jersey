@@ -6,7 +6,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
           <form class=" w-full mx-auto p-8 rounded-lg" wire:submit="update">
-            <h2 class="text-4xl dark:text-white font-bold ">Edit Produk</h2>
+            <h2 class="text-4xl dark:text-white font-bold ">Edit Liga</h2>
 
             @if (flash()->message)
               @if (flash()->class === 'success')

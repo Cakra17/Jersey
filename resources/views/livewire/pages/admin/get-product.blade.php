@@ -43,7 +43,22 @@
                     <p>{{ rupiah($product->price) }}</p>
                     <div class="card-actions justify-end">
                       <a class="btn btn-warning" href="{{route('admin.edit', $product->id)}}" wire:navigate>Edit</a>
-                      <button class="btn btn-error" wire:click="destroy({{$product->id}})" >Delete</button>
+                      {{-- <button class="btn btn-error" wire:click="destroy({{$product->id}})" >Delete</button> --}}
+                      <!-- Open the modal using ID.showModal() method -->
+                      <button class="btn btn-error" onclick="my_modal_1.showModal()" wire:click="check({{$product->id}})">Delete</button>
+                      <dialog id="my_modal_1" class="modal" wire:ignore>
+                        <div class="modal-box">
+                          <h3 class="font-bold text-lg">Peringatan!</h3>
+                          <p class="py-4">Apakah kamu yakin menghapus data ini?</p>
+                          <div class="modal-action">
+                            <form method="dialog">
+                              <!-- if there is a button in form, it will close the modal -->
+                              <button class="btn btn-error" wire:click="destroy()" >Delete</button>
+                              <button class="btn">Close</button>
+                            </form>
+                          </div>
+                        </div>
+                      </dialog>
                     </div>
                   </div>
                 </div>
