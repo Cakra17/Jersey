@@ -32,12 +32,11 @@
             </div>
             <div class="flex flex-col text-gray-400 py-2">
                 <label>Liga</label>
-                <select class="select bg-gray-700 mt-2 p-2 w-full" wire:model="liga_id" >
-                    <option disabled>Pilih Liga</option>
-                    <option value="1">Bundesliga</option>
-                    <option value="2">Premier League</option>
-                    <option value="3">La liga</option>
-                    <option value="4">Serie A</option>
+                <select class="select bg-gray-700 mt-2 p-2 w-full" wire:model.change="liga_id" >
+                  <option disabled>Pilih Liga</option>
+                  @foreach ($ligas as $liga)
+                  <option value="{{$liga->id}}" >{{$liga->name}}</option>
+                  @endforeach
                 </select>
             </div>
             <div class="flex flex-col text-gray-400 py-2">

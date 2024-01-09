@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Http\Controllers\CloudinaryStorage;
+use App\Models\Liga;
 use App\Models\Product;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -45,11 +46,13 @@ class AddProduct extends Component
         } catch (\Throwable $th) {
             flash('Failed to make a Post', 'error');
         }
-
     }
 
     public function render()
     {
-        return view('livewire.pages.admin.add-product');
+        $ligas = Liga::all();
+        return view('livewire.pages.admin.add-product', [
+            'ligas' => $ligas
+        ]);
     }
 }
