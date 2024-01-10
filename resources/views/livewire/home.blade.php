@@ -52,7 +52,12 @@
             <h2 class="card-title text-neutral-50">{{$product->name}}</h2>
             <p>{{ rupiah($product->price) }}</p>
             <div class="card-actions justify-end">
-              <a href="{{route('user.productDetail', $product->id)}}" class="btn btn-primary">Detail</a>
+              <a href="{{route('user.productDetail', $product->id)}}" class="btn btn-primary w-full" wire:navigate>
+                <span class="text-2xl flex justify-center items-center">
+                  <ion-icon name="eye-outline" wire:ignore></ion-icon>
+                </span>
+                Detail
+              </a>
             </div>
           </div>
         </div>

@@ -126,15 +126,15 @@
       {{-- PELANGGAN DROPDOWN --}}
       <div class="flex justify-end">
         <div class="flex justify-center items-center">
-          <a class="mx-2 flex justify-center items-center hover:text-teal-500" href="#">
+          <a class="mx-2 flex justify-center items-center hover:text-emerald-500" href="#">
             <span class="flex justify-center items-center text-2xl">
-              <ion-icon name="cart-outline"></ion-icon>
+              <ion-icon name="cart-outline" wire:ignore></ion-icon>
             </span>
             <p class="badge badge-primary badge-outline">99</p>
           </a>
-          <a class="mx-2 text-2xl flex justify-center items-center hover:text-teal-500" href="{{route('user.wishlist')}}" wire:navigate>
+          <a class="mx-2 text-2xl flex justify-center items-center hover:text-emerald-500" href="{{route('user.wishlist')}}" wire:navigate>
             <span class="flex justify-center items-center text-2xl">
-              <ion-icon name="heart-outline"></ion-icon>
+              <ion-icon name="heart-outline" wire:ignore></ion-icon>
             </span>
             <p class="badge badge-primary badge-outline">{{$wishlist}}</p>
           </a>
@@ -169,7 +169,7 @@
     @endauth
     {{-- HAMBURGER --}}
     @if (Route::is('home'))
-    <ion-icon name="menu" class="text-3xl cursor-pointer md:hidden" onclick="onToggleMenu(this)"></ion-icon>
+    <ion-icon name="menu" class="text-3xl cursor-pointer md:hidden" onclick="onToggleMenu(this)" wire:ignore></ion-icon>
     @endif
   </div>
 </div>

@@ -42,10 +42,20 @@
                     <h2 class="card-title">{{$product->name}}</h2>
                     <p>{{ rupiah($product->price) }}</p>
                     <div class="card-actions justify-end">
-                      <a class="btn btn-warning" href="{{route('admin.edit', $product->id)}}" wire:navigate>Edit</a>
+                      <a class="btn btn-warning" href="{{route('admin.edit', $product->id)}}" wire:navigate>
+                        <span class="text-2xl flex justify-center items-center" wire:ignore>
+                          <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        Edit
+                      </a>
                       {{-- <button class="btn btn-error" wire:click="destroy({{$product->id}})" >Delete</button> --}}
                       <!-- Open the modal using ID.showModal() method -->
-                      <button class="btn btn-error" onclick="my_modal_1.showModal()" wire:click="check({{$product->id}})">Delete</button>
+                      <button class="btn btn-error" onclick="my_modal_1.showModal()" wire:click="check({{$product->id}})">
+                        <span class="text-2xl flex justify-center items-center">
+                          <ion-icon name="trash-outline" wire:ignore></ion-icon>
+                        </span>
+                        Delete
+                      </button>
                       <dialog id="my_modal_1" class="modal" wire:ignore>
                         <div class="modal-box">
                           <h3 class="font-bold text-lg">Peringatan!</h3>

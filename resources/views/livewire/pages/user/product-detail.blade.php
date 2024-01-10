@@ -40,13 +40,13 @@
           <h1 class="text-4xl text-white"><strong>{{$product->name}}</strong></h1>
           @if ($product->is_ready == 1)
           <div class="badge badge-accent text-md gap-1">
-            <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+            <ion-icon name="checkmark-done-circle-outline" wire:ignore></ion-icon>
             Ready Stok
           </div>  
           @else
           <div class="badge badge-error text-md gap-2">
             Stock Habis
-            <ion-icon name="close-circle-outline"></ion-icon>
+            <ion-icon name="close-circle-outline" wire:ignore></ion-icon>
           </div>    
           @endif
           <p class="text-lg text-white">{{rupiah($product->price)}}</p>
@@ -68,21 +68,25 @@
               <span>{{ flash()->message}}</span>
             </div> 
           @endif
-          @if (flash()->class === 'info')
-            <div role="alert" class="alert alert-info my-3 mx-auto lg:w-2/3">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              <span>{{ flash()->message}}</span>
-            </div> 
-          @endif
         @endif
 
         <div class="flex flex-col lg:w-2/3 mx-auto gap-4 justify-end lg:h-full">
           @if (checkWishlist($product->id))
           <button class="btn btn-primary rounded-2xl" wire:click="addToWishlist()" disabled>Tambah ke Wishlist</button>
           @else
-          <button class="btn btn-primary rounded-2xl" wire:click="addToWishlist()">Tambah ke Wishlist</button>    
+          <button class="btn btn-primary rounded-2xl" wire:click="addToWishlist()">
+            <span class="flex justify-center items-center text-2xl">
+              <ion-icon name="heart-outline" wire:ignore></ion-icon>
+            </span>
+            Tambah ke Wishlist
+          </button>    
           @endif
-          <button class="btn btn-accent rounded-2xl" @if (!$product->is_ready == 1) disabled @endif wire:click="addToCart()">Tambah ke Keranjang</button>
+          <button class="btn btn-accent rounded-2xl" @if (!$product->is_ready == 1) disabled @endif wire:click="addToCart()">
+            <span class="flex justify-center items-center text-2xl">
+              <ion-icon name="cart-outline" wire:ignore></ion-icon>
+            </span>
+            Tambah ke Keranjang
+          </button>
         </div>
       </div>
     </div>

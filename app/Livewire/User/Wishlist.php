@@ -3,7 +3,9 @@
 namespace App\Livewire\User;
 
 use App\Models\Wishlist as ModelsWishlist;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 #[Title('Wishlist')]
@@ -11,6 +13,9 @@ use Livewire\Component;
 class Wishlist extends Component
 {
     public $wishlistid;
+
+    #[Url]
+    public $search;
 
     public function check($id)
     {
@@ -26,7 +31,7 @@ class Wishlist extends Component
 
     public function render()
     {
-        $wishlists = ModelsWishlist::paginate(8);
+        $wishlists = ModelsWishlist::where('user_id', Auth::user()->id)->where('product_name', 'like', "%{$this->search}%")->paginate(8);
         return view('livewire.pages.user.wishlist',compact('wishlists'));
     }
 }

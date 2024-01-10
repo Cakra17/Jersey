@@ -35,6 +35,7 @@ class ProductDetail extends Component
                 Wishlist::create([
                     'user_id' => Auth::user()->id,
                     'product_id' => $this->product->id,
+                    'product_name' => $this->product->name,
                 ]);
                 flash('Berhasil menambahkan ke wishlist', 'success');
                 return redirect()->route('user.productDetail',['id' => $this->product->id]);    

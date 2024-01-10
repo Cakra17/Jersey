@@ -35,9 +35,19 @@
                     <img src="{{ checkImagePathLiga($liga->image)}}" alt="" class="max-h-[100px] lg:max-h-[130px]"/>
                   </div>
                   <div class="flex justify-end gap-4">
-                    <a class="btn btn-warning" href="{{route('admin.liga.edit', $liga->id)}}" wire:navigate>Edit</a>
+                    <a class="btn btn-warning" href="{{route('admin.liga.edit', $liga->id)}}" wire:navigate>
+                      <span class="text-2xl flex justify-center items-center">
+                        <ion-icon name="settings-outline" wire:ignore></ion-icon>
+                      </span>
+                      Edit
+                    </a>
                     <!-- Open the modal using ID.showModal() method -->
-                    <button class="btn btn-error" onclick="my_modal_1.showModal()" wire:click="check({{$liga->id}})">Delete</button>
+                    <button class="btn btn-error" onclick="my_modal_1.showModal()" wire:click="check({{$liga->id}})">
+                      <span class="text-2xl flex justify-center items-center" wire:ignore>
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </span>
+                      Delete
+                    </button>
                     <dialog id="my_modal_1" class="modal" wire:ignore>
                       <div class="modal-box">
                         <h3 class="font-bold text-lg">Peringatan!</h3>
@@ -105,7 +115,7 @@
                   </span>
                   Lihat Liga
                 </a>
-              </li> 
+            </li> 
             <li><a class="text-lg hover:text-emerald-500 {{ Route::is('admin') ? 'bg-emerald-500 rounded-md text-white' : ''}}">Pembayaran</a></li>
           </ul>
         </div>
