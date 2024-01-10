@@ -1,5 +1,7 @@
 @php
 
+    use App\Models\Wishlist;
+
     function rupiah($price)
     {
         $hasil_rupiah = "Rp " . number_format($price,2,',','.');
@@ -18,6 +20,12 @@
     function formatDescription($text)
     {
       return nl2br(e($text));
+    }
+
+    function checkWishlist($productid) 
+    {
+      $isExist = Wishlist::where('user_id', Auth::user()->id)->where('product_id', $productid)->first();
+      return $isExist;
     }
 
 @endphp
@@ -69,7 +77,11 @@
         @endif
 
         <div class="flex flex-col lg:w-2/3 mx-auto gap-4 justify-end lg:h-full">
-          <button class="btn btn-primary rounded-2xl" @if (!$product->is_ready == 1) disabled @endif wire:click="addToWishlist()">Tambah ke Wishlist</button>
+          @if (checkWishlist($product->id))
+          <button class="btn btn-primary rounded-2xl" wire:click="addToWishlist()" disabled>Tambah ke Wishlist</button>
+          @else
+          <button class="btn btn-primary rounded-2xl" wire:click="addToWishlist()">Tambah ke Wishlist</button>    
+          @endif
           <button class="btn btn-accent rounded-2xl" @if (!$product->is_ready == 1) disabled @endif wire:click="addToCart()">Tambah ke Keranjang</button>
         </div>
       </div>

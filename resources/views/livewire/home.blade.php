@@ -52,7 +52,7 @@
             <h2 class="card-title text-neutral-50">{{$product->name}}</h2>
             <p>{{ rupiah($product->price) }}</p>
             <div class="card-actions justify-end">
-              <a href="{{route('user.productDetail', $product->id)}}" class="btn btn-primary">Beli sekarang</a>
+              <a href="{{route('user.productDetail', $product->id)}}" class="btn btn-primary">Detail</a>
             </div>
           </div>
         </div>
