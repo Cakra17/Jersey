@@ -9,7 +9,7 @@ class OrderDetail extends Model
 {
     use HasFactory;
 
-    public function liga()
+    public function order()
     {
         return $this->belongsTo(Order::class,'order_id','id');
     }

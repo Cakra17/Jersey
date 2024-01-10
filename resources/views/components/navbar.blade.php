@@ -1,10 +1,14 @@
 @php
   use App\Models\Liga;
-  
+  use App\Models\Wishlist;
+
   $ligas_europe = Liga::where('region_id', 1)->get();
   $ligas_america = Liga::where('region_id', 2)->get();  
   $ligas_asia = Liga::where('region_id', 3)->get();
 
+  if (Auth::user()) {
+    $wishlist = Wishlist::where('user_id', Auth::user()->id)->count();
+  }
 
 @endphp
 
@@ -120,31 +124,42 @@
       </div>
       @else
       {{-- PELANGGAN DROPDOWN --}}
-      <div class="dropdown dropdown-end">
+      <div class="flex justify-end">
         <div class="flex justify-center items-center">
-          <p class="mx-2 text-white">{{Auth::user()->name}}</p>
-          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full">
-              <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          <a class="mx-2 flex justify-center items-center hover:text-teal-500" href="#">
+            <span class="flex justify-center items-center text-2xl">
+              <ion-icon name="cart-outline"></ion-icon>
+            </span>
+            <p class="badge badge-primary badge-outline">99</p>
+          </a>
+          <a class="mx-2 text-2xl flex justify-center items-center hover:text-teal-500" href="{{route('user.wishlist')}}" wire:navigate>
+            <span class="flex justify-center items-center text-2xl">
+              <ion-icon name="heart-outline"></ion-icon>
+            </span>
+            <p class="badge badge-primary badge-outline">{{$wishlist}}</p>
+          </a>
+        </div>
+        <div class="dropdown dropdown-end">
+          <div class="flex justify-center items-center">
+            <p class="mx-2 text-white">{{Auth::user()->name}}</p>
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 rounded-full">
+                <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              </div>
             </div>
           </div>
+          <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+            <li>
+              <a href="{{route('profile.setting')}}">Settings</a>
+            </li>
+            <li>
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit">Logout</button>
+              </form>
+            </li>
+          </ul>
         </div>
-        <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-          <li>
-            <a>
-              Wishlist
-            </a>
-          </li>
-          <li>
-            <a href="{{route('profile.setting')}}">Settings</a>
-          </li>
-          <li>
-            <form action="{{ route('logout') }}" method="POST">
-              @csrf
-              <button type="submit">Logout</button>
-            </form>
-          </li>
-        </ul>
       </div>
       @endif
     @else
