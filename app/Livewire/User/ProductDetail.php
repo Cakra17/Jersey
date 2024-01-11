@@ -2,6 +2,8 @@
 
 namespace App\Livewire\User;
 
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +15,6 @@ use Livewire\Component;
 class ProductDetail extends Component
 {
     public $product;
-    public $total_order = 1;
 
     public function mount($id)
     {
@@ -22,7 +23,40 @@ class ProductDetail extends Component
 
     public function addToCart() 
     {
-        dd($this->total_order);
+
+        $order = Order::where('user_id', Auth::user()->id)->where('status', 0)->first();
+
+        try {
+            if(empty($order)){
+                Order::create([
+                    'user_id' => Auth::user()->id,
+                    'total_price' => $this->product->price,
+                    'status' => 0,
+                    'unique_code' => mt_rand(1000,9999),
+                ]);
+    
+                $order = Order::where('user_id', Auth::user()->id)->where('status', 0)->first();
+                $order->order_code = 'RTS-'.$order->id;
+                $order->update();
+            } else {
+                $order->total_price = $order->total_price + $this->product->price;
+                $order->update();
+            }
+    
+            OrderDetail::create([
+                'product_id' => $this->product->id,
+                'order_id' => $order->id,
+                'total_orders' => 1,
+                'total_price' => $this->product->price,
+            ]);
+            flash('Berhasil menambahkan ke keranjang', 'success');
+            return redirect()->route('user.productDetail',['id' => $this->product->id]);
+
+        } catch (\Throwable $th) {
+            flash('Gagal menambahkan ke keranjang', 'error');
+        }
+
+        
     }
 
     public function addToWishlist()

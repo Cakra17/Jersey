@@ -1,13 +1,21 @@
 @php
   use App\Models\Liga;
   use App\Models\Wishlist;
+  use App\Models\Order;
+  use App\Models\OrderDetail;
 
   $ligas_europe = Liga::where('region_id', 1)->get();
   $ligas_america = Liga::where('region_id', 2)->get();  
   $ligas_asia = Liga::where('region_id', 3)->get();
+  $order_details = 0;
 
   if (Auth::user()) {
     $wishlist = Wishlist::where('user_id', Auth::user()->id)->count();
+    $order = Order::where('user_id', Auth::user()->id)->where('status',0)->first();
+    if($order)
+    {
+      $order_details = OrderDetail::where('order_id', $order->id)->count();
+    }
   }
 
 @endphp
@@ -126,11 +134,11 @@
       {{-- PELANGGAN DROPDOWN --}}
       <div class="flex justify-end">
         <div class="flex justify-center items-center">
-          <a class="mx-2 flex justify-center items-center hover:text-emerald-500" href="#">
+          <a class="mx-2 flex justify-center items-center hover:text-emerald-500" href="{{route('user.cart')}}" wire:navigate>
             <span class="flex justify-center items-center text-2xl">
               <ion-icon name="cart-outline" wire:ignore></ion-icon>
             </span>
-            <p class="badge badge-primary badge-outline">99</p>
+            <p class="badge badge-primary badge-outline">{{$order_details}}</p>
           </a>
           <a class="mx-2 text-2xl flex justify-center items-center hover:text-emerald-500" href="{{route('user.wishlist')}}" wire:navigate>
             <span class="flex justify-center items-center text-2xl">
