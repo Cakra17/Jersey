@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AfterPaymentController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,8 @@ Route::middleware(['auth','verified'])->group(function () {
   Route::get('/admin/liga/{ligaid}',\App\Livewire\Admin\EditLiga::class)->name('admin.liga.edit');
   Route::get('/wishlist', \App\Livewire\User\Wishlist::class)->name('user.wishlist')->middleware('pelanggan');
   Route::get('/cart', \App\Livewire\User\Cart::class)->name('user.cart')->middleware('pelanggan');
+  Route::get('/payment/{id}', \App\Livewire\User\Checkout::class)->name('user.payment')->middleware('pelanggan');
+  Route::get('/history', \App\Livewire\User\History::class)->name('user.history')->middleware('pelanggan');
 });
 
 Route::middleware('guest')->group(function () {

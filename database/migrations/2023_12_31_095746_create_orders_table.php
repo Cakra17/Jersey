@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('total_price');
             $table->integer('unique_code');
             $table->integer('user_id');
+            $table->string('snap_token')->nullable();
             $table->timestamps();
         });
     }

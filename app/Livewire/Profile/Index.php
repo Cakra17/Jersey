@@ -39,26 +39,33 @@ class Index extends Component
 
     public function updateProfileInformation()
     {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $validated = $this->validate([
-            'name' => ['required', 'string', 'min:5', 'max:30'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-            'address' => ['string', 'max:225'],
-            'phone' => ['string','max:225'],
-        ]);
+            $validated = $this->validate([
+                'name' => ['required', 'string', 'min:5', 'max:30'],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+                'address' => ['string', 'max:225'],
+                'phone' => ['string','max:225'],
+            ]);
 
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->address = $validated['address'];
-        $user->phone = $validated['phone'];
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
+            $user->address = $validated['address'];
+            $user->phone = $validated['phone'];
 
-        $user->save();
+            $user->save();
+
+            flash("Data diri berhasil diperbaharui", 'success');
+        } catch (\Throwable $th) {
+            flash("Data diri gagal diperbaharui", 'error');
+        }
+        
     }
 
     public function updateUserPassword()
     {
-        
+       
         try {
             $validated = $this->validate([
                 'current_password' => ['required', 'string', 'current_password'],
@@ -75,6 +82,7 @@ class Index extends Component
         ]);
 
         $this->reset('current_password', 'password', 'password_confirmation');
+        flash("Password berhasil diperbaharui", 'success');
     }
 
     public function render()

@@ -161,6 +161,9 @@
               <a href="{{route('profile.setting')}}">Settings</a>
             </li>
             <li>
+              <a href="{{route('user.history')}}">Riwayat Pembelian</a>
+            </li>
+            <li>
               <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit">Logout</button>

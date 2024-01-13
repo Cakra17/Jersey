@@ -5,17 +5,18 @@ namespace App\Livewire\User;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title('Keranjang')]
+#[Layout('components.layouts.user')]
 
 class Cart extends Component
 {
 
     protected $order;
-    protected $order_details = [];
-    public $snapToken; 
+    protected $order_details = []; 
 
     public function destroy($id)
     {
@@ -47,23 +48,31 @@ class Cart extends Component
         // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
 
-        $order = Order::find($id);
+        if (Auth::user()->address != null && Auth::user()->phone) {
+            $order = Order::find($id);
 
-        dd($order->total_price);
-        // $params = array(
-        //     'transaction_details' => array(
-        //         'order_id' => $order->id,
-        //         'gross_amount' => $order->total_price,
-        //     ),
-        //     'customer_details' => array(
-        //         'name' => Auth::user()->name,
-        //         'address' => Auth::user()->address,
-        //         'phone' => Auth::user()->phone,
-        //         'email' => Auth::user()->email,
-        //     ),
-        // );
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => $order->id,
+                    'gross_amount' => $order->total_price,
+                ),
+                'customer_details' => array(
+                    'name' => Auth::user()->name,
+                    'address' => Auth::user()->address,
+                    'phone' => Auth::user()->phone,
+                    'email' => Auth::user()->email,
+                ),
+            );
 
-        // $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $order->snap_token = $snapToken;
+            $order->update();
+            return redirect()->route('user.payment', $order->id);
+        } else {
+            redirect()->route('profile.setting');
+            flash("Tolong lengkapi data diri dahulu sebelum melakukan checkout", 'error');
+        }
+        
     }
 
     public function render()
