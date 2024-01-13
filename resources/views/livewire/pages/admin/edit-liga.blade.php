@@ -106,7 +106,14 @@
                 Lihat Liga
               </a>
             </li> 
-            <li><a class="text-lg hover:text-emerald-500 {{ Route::is('admin') ? 'bg-emerald-500 rounded-md text-white' : ''}}">Pembayaran</a></li>
+            <li>
+              <a class="text-lg hover:text-emerald-500 {{ Route::is('admin.payment') ? 'bg-emerald-500 rounded-md text-white' : ''}}" href="{{route('admin.payment')}}" wire:navigate wire:ignore>
+                <span class="text-2xl">
+                  <ion-icon name="card-outline"></ion-icon>
+                </span>
+                Pembayaran
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -29,6 +29,7 @@ Route::middleware(['auth','verified'])->group(function () {
   Route::get('/admin/liga/post', \App\Livewire\Admin\AddLiga::class)->name('admin.liga.post')->middleware('admin');
   Route::get('/admin/liga',\App\Livewire\Admin\GetLiga::class)->name('admin.liga');
   Route::get('/admin/liga/{ligaid}',\App\Livewire\Admin\EditLiga::class)->name('admin.liga.edit');
+  Route::get('/admin/paymentdetail', \App\Livewire\Admin\PaymentDetail::class)->name('admin.payment')->middleware('admin');
   Route::get('/wishlist', \App\Livewire\User\Wishlist::class)->name('user.wishlist')->middleware('pelanggan');
   Route::get('/cart', \App\Livewire\User\Cart::class)->name('user.cart')->middleware('pelanggan');
   Route::get('/payment/{id}', \App\Livewire\User\Checkout::class)->name('user.payment')->middleware('pelanggan');

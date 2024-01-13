@@ -15,6 +15,7 @@ class Product extends Model
         'description',
         'image',
         'liga_id',
+        'is_ready',
     ];
 
     protected $guarded = [];

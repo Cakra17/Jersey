@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -24,11 +25,14 @@ class Cart extends Component
         if(!empty($order_detail)){
             $order = Order::where('id', $order_detail->order_id)->first();
             $total_order_detail = OrderDetail::where('order_id', $order->id)->count();
+            $product = Product::find($order_detail->product_id);
             if($total_order_detail == 1){
                 $order->delete();
+                $product->update(['is_ready' => true]);
             }else{
                 $order->total_price = $order->total_price - $order_detail->total_price;
                 $order->update();
+                $product->update(['is_ready' => true]);
             }
             $order_detail->delete();
             

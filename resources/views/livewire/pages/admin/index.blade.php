@@ -1,3 +1,11 @@
+@php
+
+    function rupiah($price)
+    {
+        $hasil_rupiah = "Rp " . number_format($price,2,',','.');
+	      return $hasil_rupiah;
+    }
+@endphp
 <div>
     <span wire:ignore>
       <x-navbar />
@@ -18,7 +26,7 @@
             <div class="bg-white/10 h-2/3 flex items-center rounded-xl">
               <div class="mx-auto">
                 <h1 class="lg:text-3xl text-xl font-bold">Total Pemasukan</h1>
-                <p class="opacity-50 text-xl">10,000</p>
+                <p class="opacity-50 text-xl hover:text-emerald-400">{{rupiah($totalRevenue)}}</p>
               </div>
               <div class="text-6xl mx-auto">
                 <ion-icon name="cash-outline"></ion-icon>
@@ -26,8 +34,8 @@
             </div>
             <div class="bg-white/10 h-2/3 flex items-center rounded-xl">
               <div class="mx-auto">
-                <h1 class="lg:text-3xl text-xl font-bold">Total Order</h1>
-                <p class="opacity-50 text-xl">10,000</p>
+                <h1 class="lg:text-3xl text-xl font-bold">Total Terjual</h1>
+                <p class="opacity-50 text-xl hover:text-emerald-400">{{$totalOrder}} Items</p>
               </div>
               <div class="text-6xl mx-auto">
                 <ion-icon name="pricetags"></ion-icon>
@@ -80,7 +88,14 @@
                 Lihat Liga
               </a>
             </li>  
-            <li><a class="text-lg hover:text-emerald-500 {{ Route::is('admin') ? 'bg-emerald-500 rounded-md text-white' : ''}}">Pembayaran</a></li>
+            <li>
+              <a class="text-lg hover:text-emerald-500 {{ Route::is('admin.payment') ? 'bg-emerald-500 rounded-md text-white' : ''}}" href="{{route('admin.payment')}}" wire:navigate wire:ignore>
+                <span class="text-2xl">
+                  <ion-icon name="card-outline"></ion-icon>
+                </span>
+                Pembayaran
+              </a>
+            </li>
           </ul>
         </div>
     </div>

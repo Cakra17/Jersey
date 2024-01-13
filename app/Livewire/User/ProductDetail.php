@@ -49,6 +49,8 @@ class ProductDetail extends Component
                 'total_orders' => 1,
                 'total_price' => $this->product->price,
             ]);
+            $product = Product::find($this->product->id);
+            $product->update(['is_ready' => false]);
             flash('Berhasil menambahkan ke keranjang', 'success');
             return redirect()->route('user.productDetail',['id' => $this->product->id]);
 
